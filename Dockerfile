@@ -1,7 +1,18 @@
+FROM golang:1.23-alpine AS builder
+
+# 构建执行文件
+WORKDIR /app
+RUN apk add git make && git clone https://github.com/bincooo/chatgpt-adapter.git -b main .
+RUN make install
+# RUN make
+RUN make build-linux
+# RUN make build-osx
+# RUN make build-win
+
 FROM node:slim
 
 WORKDIR /home/choreouser
-
+COPY --from=builder /app/bin/linux/server /home/choreouser/server
 ENV PM2_HOME=/tmp
 
 RUN apt-get update &&\
