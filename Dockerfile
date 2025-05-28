@@ -2,7 +2,7 @@ FROM golang:1.23-alpine AS builder
 
 # 构建执行文件
 WORKDIR /app
-RUN apk add git make && git clone https://github.com/bincooo/chatgpt-adapter.git -b main .
+RUN apk add git make && git clone https://github.com/Suyunmeng/chatgpt-adapter.git -b main .
 RUN make install
 # RUN make
 RUN make build-linux
